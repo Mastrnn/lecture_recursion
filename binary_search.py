@@ -20,7 +20,6 @@ def read_data(file_name, key="ordered_numbers"):
 
     return seqs[key]
 
-
 def binary_search(seq, number):
     """
     Function performs binary search on !!ordered!! sequence and stores position of match if found.
@@ -41,15 +40,28 @@ def binary_search(seq, number):
             return middle
     return None
 
-
+def recursive_binary_search(seznam, n, left, right):
+    if right >= left:
+        mid = left + (right - left) // 2
+        if n == seznam[mid]:
+            return mid
+        elif n < seznam[mid]:
+            return recursive_binary_search(seznam, n, left, mid - 1)
+        elif n > seznam[mid]:
+            return recursive_binary_search(seznam, n, mid + 1, right)
+    else:
+        return None
 def main(file_name, number):
     sequence = read_data(file_name=file_name, key="ordered_numbers")
 
     # iterative binary search
     binary_search(sequence, number=number)
 
+    result=recursive_binary_search(sequence,my_number,0,len(sequence)-1)
+    print(result)
+
 
 if __name__ == "__main__":
     my_file = "sequential.json"
-    my_number = 90
+    my_number = 22
     main(my_file, my_number)
